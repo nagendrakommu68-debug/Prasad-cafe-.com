@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cafe Prasad – Tea Master, Konijedu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #fdf5e8;
+      --latte:   #c8a97c;
+      --espresso:#3b1f0e;
+      --amber:   #d4750a;
+      --leaf:    #5a7a4a;
+      --steam:   rgba(255,255,255,0.18);
+      --dark:    #1a0d05;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--cream);
+      color: var(--espresso);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 1.5rem 5rem;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(90,122,74,.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 80% 20%, rgba(212,117,10,.20) 0%, transparent 55%),
+        linear-gradient(160deg, #2b1006 0%, #3b1f0e 40%, #5c2e10 100%);
+      overflow: hidden;
+    }
+
+    .steam-wrap {
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      width: 100%; max-width: 500px;
+      height: 260px;
+      pointer-events: none;
+    }
+    .steam {
+      position: absolute;
+      bottom: 0;
+      width: 6px;
+      border-radius: 50px;
+      background: var(--steam);
+      animation: rise 4s ease-in infinite;
+      opacity: 0;
+    }
+    .steam:nth-child(1){ left:36%; height:80px;  animation-delay:0s;   animation-duration:3.8s; }
+    .steam:nth-child(2){ left:46%; height:110px; animation-delay:.8s;  animation-duration:4.2s; }
+    .steam:nth-child(3){ left:56%; height:90px;  animation-delay:1.6s; animation-duration:3.5s; }
+    .steam:nth-child(4){ left:42%; height:70px;  animation-delay:2.4s; animation-duration:4.5s; }
+    .steam:nth-child(5){ left:52%; height:100px; animation-delay:3.2s; animation-duration:4s;   }
+
+    @keyframes rise {
+      0%   { opacity:0; transform: translateY(0) scaleX(1); }
+      20%  { opacity:.7; }
+      100% { opacity:0; transform: translateY(-220px) scaleX(3) rotate(8deg); }
+    }
+
+    .cup-svg {
+      position: absolute;
+      bottom: -10px; left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      opacity: .12;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--amber);
+      color: #fff;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: .38rem 1.1rem;
+      border-radius: 2px;
+      margin-bottom: 1.4rem;
+      animation: fadeDown .8s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 14vw, 6.5rem);
+      font-weight: 900;
+      color: var(--cream);
+      line-height: 1.0;
+      letter-spacing: .02em;
+      animation: fadeDown .9s .1s ease both;
+    }
+    .hero-title span { color: var(--latte); font-style: italic; }
+
+    .hero-sub {
+      font-size: clamp(.9rem, 3vw, 1.15rem);
+      color: rgba(253,245,232,.65);
+      font-weight: 300;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin: 1rem 0 2.2rem;
+      animation: fadeDown 1s .2s ease both;
+    }
+
+    .leaf-icon { color: var(--latte); margin: 0 .5rem; }
+
+    .hero-cta {
+      display: inline-block;
+      padding: .85rem 2.4rem;
+      border: 1.5px solid var(--latte);
+      color: var(--latte);
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: .82rem;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background .3s, color .3s;
+      animation: fadeDown 1.1s .3s ease both;
+    }
+    .hero-cta:hover { background: var(--latte); color: var(--espresso); }
+
+    @keyframes fadeDown {
+      from { opacity:0; transform: translateY(-22px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── RIBBON ── */
+    .ribbon {
+      background: var(--amber);
+      color: #fff;
+      text-align: center;
+      padding: .9rem 1rem;
+      font-size: .82rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* ── SHARED ── */
+    .section-label {
+      font-size: .7rem;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--amber);
+      font-weight: 700;
+      margin-bottom: .5rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1.1rem;
+    }
+    .section-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #5c3a1e;
+      max-width: 640px;
+    }
+
+    /* ── ABOUT ── */
+    .about-wrap {
+      background: #fff;
+      padding: 5rem 2.5rem;
+    }
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .about-visual { position: relative; }
+    .frame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, #3b1f0e, #6b3a1a);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 7rem;
+    }
+    .accent-box {
+      position: absolute;
+      bottom: -18px; right: -18px;
+      width: 65%;
+      aspect-ratio: 1;
+      background: var(--amber);
+      border-radius: 4px;
+      z-index: -1;
+    }
+    .years-badge {
+      position: absolute;
+      top: 1.2rem; left: -1rem;
+      background: var(--espresso);
+      color: var(--cream);
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      box-shadow: 0 6px 22px rgba(0,0,0,.3);
+    }
+    .years-badge .num { font-family:'Playfair Display',serif; font-size:1.9rem; font-weight:900; line-height:1; color:var(--latte); }
+    .years-badge .txt { font-size:.52rem; letter-spacing:.12em; text-transform:uppercase; }
+
+    .about-text .section-body { margin-bottom: 1rem; }
+    .tag-list { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.6rem; }
+    .tag {
+      background: var(--cream);
+      border: 1px solid var(--latte);
+      color: var(--espresso);
+      font-size:.75rem;
+      letter-spacing:.08em;
+      padding:.35rem .85rem;
+      border-radius:20px;
+      font-weight:700;
+    }
+
+    /* ── SPECIALTIES ── */
+    .specialties {
+      background: var(--espresso);
+      color: var(--cream);
+      padding: 4.5rem 1.5rem;
+    }
+    .specialties .section-title { color: var(--cream); }
+    .specialties .section-body  { color: rgba(253,245,232,.7); max-width:520px; margin-bottom:3rem; }
+    .specialties .section-label { color: var(--latte); }
+    .spec-header { max-width: 1100px; margin: 0 auto; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(200,169,124,.18);
+      border-radius: 6px;
+      padding: 2rem 1.6rem;
+      transition: transform .3s, background .3s;
+    }
+    .card:hover { transform: translateY(-6px); background: rgba(200,169,124,.12); }
+    .card-icon { font-size: 2.4rem; margin-bottom: 1rem; }
+    .card-title { font-family:'Playfair Display',serif; font-size:1.2rem; font-weight:700; color:var(--latte); margin-bottom:.55rem; }
+    .card-desc { font-size:.88rem; line-height:1.68; color:rgba(253,245,232,.65); }
+
+    /* ── QUOTE ── */
+    .quote-section {
+      background: var(--leaf);
+      text-align: center;
+      padding: 4.5rem 2rem;
+    }
+    blockquote {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.2rem, 4vw, 1.9rem);
+      font-style: italic;
+      color: #fff;
+      max-width: 780px;
+      margin: 0 auto 1.2rem;
+      line-height: 1.55;
+    }
+    blockquote::before { content:'\201C'; font-size:4rem; line-height:0; vertical-align:-.55em; color:rgba(255,255,255,.35); margin-right:.2rem; }
+    cite { font-size:.8rem; letter-spacing:.15em; color:rgba(255,255,255,.65); text-transform:uppercase; }
+
+    /* ── TIMELINE ── */
+    .timeline-section {
+      padding: 4.5rem 1.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .timeline { list-style:none; position:relative; margin-top:3rem; }
+    .timeline::before {
+      content:''; position:absolute;
+      left:18px; top:0; bottom:0;
+      width:2px; background:var(--latte);
+    }
+    .tl-item {
+      display:flex;
+      gap:1.8rem;
+      margin-bottom:2.4rem;
+      position:relative;
+    }
+    .tl-dot {
+      flex-shrink:0;
+      width:38px; height:38px;
+      background:var(--espresso);
+      border:3px solid var(--latte);
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1rem;
+      margin-top:.2rem;
+      z-index:1;
+    }
+    .tl-year { font-size:.72rem; letter-spacing:.15em; text-transform:uppercase; color:var(--amber); font-weight:700; }
+    .tl-title { font-family:'Playfair Display',serif; font-size:1.12rem; font-weight:700; margin:.25rem 0 .4rem; }
+    .tl-desc { font-size:.88rem; line-height:1.7; color:#6b4a2a; }
+
+    /* ── MENU ── */
+    .menu-section {
+      background: #fff7ee;
+      text-align: center;
+      padding: 4.5rem 1.5rem;
+    }
+    .menu-section .section-title { font-family:'Playfair Display',serif; }
+    .menu-section p.sub { color:#7a4e2b; max-width:480px; margin:.6rem auto 0; font-size:.95rem; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+      gap: 1.2rem;
+      max-width: 900px;
+      margin: 2.5rem auto 0;
+    }
+    .menu-item {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 1.5rem 1rem;
+      box-shadow: 0 2px 12px rgba(59,31,14,.08);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .menu-item:hover { box-shadow:0 8px 28px rgba(59,31,14,.16); transform:translateY(-4px); }
+    .mi-icon { font-size:2rem; margin-bottom:.6rem; }
+    .mi-name { font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; }
+    .mi-sub  { font-size:.76rem; color:#8b5e3c; margin-top:.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(253,245,232,.6);
+      text-align: center;
+      padding: 3rem 1.5rem 2rem;
+    }
+    .f-name { font-family:'Playfair Display',serif; font-size:1.8rem; color:var(--latte); font-weight:700; }
+    .f-tagline { font-size:.8rem; letter-spacing:.14em; text-transform:uppercase; margin:.4rem 0 1.6rem; }
+    .f-info { font-size:.85rem; line-height:2.1; }
+    .f-info span { color:var(--latte); font-weight:700; }
+    footer hr { border:none; border-top:1px solid rgba(200,169,124,.15); margin:1.8rem 0; }
+    .copy { font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px){
+      .about { grid-template-columns:1fr; gap:2.5rem; }
+      .about-wrap { padding:3.5rem 1.5rem; }
+      .accent-box { display:none; }
+      .years-badge { top:.8rem; left:.6rem; width:72px; height:72px; }
+      .years-badge .num { font-size:1.5rem; }
+      .timeline::before { left:15px; }
+      .tl-dot { width:32px; height:32px; font-size:.85rem; }
+    }
+    @media(max-width:480px){
+      .cards { grid-template-columns:1fr; }
+      .menu-grid { grid-template-columns:repeat(2,1fr); }
+      .hero-cta { padding:.75rem 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="badge">☕ Established · Konijedu</div>
+  <h1 class="hero-title">Cafe<br/><span>Prasad</span></h1>
+  <p class="hero-sub">
+    <span class="leaf-icon">🍃</span>
+    Tea Master &amp; Coffee Artisan
+    <span class="leaf-icon">🍃</span>
+  </p>
+  <a href="#about" class="hero-cta">Discover Our Story</a>
+  <div class="steam-wrap">
+    <div class="steam"></div><div class="steam"></div><div class="steam"></div>
+    <div class="steam"></div><div class="steam"></div>
+    <svg class="cup-svg" viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 20 L20 80 Q20 88 30 88 L90 88 Q100 88 100 80 L105 20 Z" fill="white"/>
+      <path d="M100 30 Q120 30 120 50 Q120 70 100 70" stroke="white" stroke-width="8" fill="none"/>
+      <rect x="10" y="14" width="100" height="10" rx="5" fill="white"/>
+    </svg>
+  </div>
+</header>
+
+<!-- RIBBON -->
+<div class="ribbon">✦ 10 Years of Crafting Perfect Brews in Konijedu ✦</div>
+
+<!-- ABOUT -->
+<div class="about-wrap" id="about">
+  <div class="about">
+    <div class="about-visual">
+      <div class="frame">☕</div>
+      <div class="accent-box"></div>
+      <div class="years-badge">
+        <span class="num">10</span>
+        <span class="txt">Years</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">Prasad — The Soul Behind Every Sip</h2>
+      <p class="section-body">With over <strong>10 years of dedicated craftsmanship</strong> in the heart of Konijedu, Prasad has grown from a humble tea-stall enthusiast into one of the region's most respected <strong>Tea Masters and Coffee Artisans</strong>.</p>
+      <p class="section-body" style="margin-top:1rem;">Every cup poured at Cafe Prasad is the result of deep experience — selecting the finest leaves, perfectly timing brews, and understanding the palate of each guest who walks through the door.</p>
+      <div class="tag-list">
+        <span class="tag">☕ Specialty Coffee</span>
+        <span class="tag">🍃 Masala Chai</span>
+        <span class="tag">🌿 Herbal Teas</span>
+        <span class="tag">🥛 Filter Coffee</span>
+        <span class="tag">🏅 10+ Years</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPECIALTIES -->
+<section class="specialties" id="specialties">
+  <div class="spec-header">
+    <p class="section-label">What We Do Best</p>
+    <h2 class="section-title">The Art of the Perfect Brew</h2>
+    <p class="section-body">Every drink is handcrafted with patience, precision, and a decade of intuition.</p>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <div class="card-icon">☕</div>
+      <h3 class="card-title">South Indian Filter Coffee</h3>
+      <p class="card-desc">Brewed through a traditional brass filter, rich and aromatic — the authentic taste of Andhra mornings.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🍵</div>
+      <h3 class="card-title">Masala Chai Mastery</h3>
+      <p class="card-desc">A secret blend of ginger, cardamom, and select spices simmered to perfection in full-cream milk.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌿</div>
+      <h3 class="card-title">Herbal &amp; Green Teas</h3>
+      <p class="card-desc">Curated loose-leaf teas sourced from trusted estates, brewed at precise temperatures for full flavour.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">🥤</div>
+      <h3 class="card-title">Cold Brews &amp; Specials</h3>
+      <p class="card-desc">Chilled cold-brew coffee and seasonal iced teas — a refreshing treat in the Andhra heat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-section">
+  <blockquote>A great cup of tea or coffee is not made by machines — it is made by hands that truly care.</blockquote>
+  <cite>— Prasad, Tea Master, Konijedu</cite>
+</div>
+
+<!-- TIMELINE -->
+<section class="timeline-section" id="journey">
+  <p class="section-label">The Journey</p>
+  <h2 class="section-title">10 Years, One Passion</h2>
+  <ul class="timeline">
+    <li class="tl-item">
+      <div class="tl-dot">🌱</div>
+      <div class="tl-body">
+        <div class="tl-year">2014 — The Beginning</div>
+        <div class="tl-title">First Cup, First Dream</div>
+        <p class="tl-desc">Prasad began his journey at a small roadside stall in Konijedu, learning the art of chai brewing from local elders.</p>
+      </div>
+    </li>
+    <li class="tl-item">
+      <div class="tl-dot">☕</div>
+      <div class="tl-body">
+        <div class="tl-year">2016 — Growing Skills</div>
+        <div class="tl-title">Mastering South Indian Coffee</div>
+        <p class="tl-desc">Trained under experienced filter-coffee brewers, perfecting the decoction process and the art of the perfect frothy pour.</p>
+      </div>
+    </li>
+    <li class="tl-item">
+      <div class="tl-dot">🏆</div>
+      <div class="tl-body">
+        <div class="tl-year">2019 — Recognition</div>
+        <div class="tl-title">A Name in Konijedu</div>
+        <p class="tl-desc">Word spread — Prasad's masala chai became the talk of the town. Regulars queued up every morning for his signature brew.</p>
+      </div>
+    </li>
+    <li class="tl-item">
+      <div class="tl-dot">🏠</div>
+      <div class="tl-body">
+        <div class="tl-year">2021 — Cafe Prasad Opens</div>
+        <div class="tl-title">A Permanent Home</div>
+        <p class="tl-desc">The beloved brand became a proper cafe — a warm, welcoming space for locals to enjoy handcrafted drinks daily.</p>
+      </div>
+    </li>
+    <li class="tl-item">
+      <div class="tl-dot">⭐</div>
+      <div class="tl-body">
+        <div class="tl-year">2024 — A Decade of Excellence</div>
+        <div class="tl-title">10 Years Strong</div>
+        <p class="tl-desc">Cafe Prasad celebrates a decade of serving joy, one cup at a time — a true landmark of Konijedu's café culture.</p>
+      </div>
+    </li>
+  </ul>
+</section>
+
+<!-- MENU -->
+<section class="menu-section" id="menu">
+  <p class="section-label">Our Menu</p>
+  <h2 class="section-title">Popular Picks</h2>
+  <p class="sub">Fresh, flavorful, and made with heart every single day.</p>
+  <div class="menu-grid">
+    <div class="menu-item"><div class="mi-icon">☕</div><div class="mi-name">Filter Coffee</div><div class="mi-sub">Classic &amp; Strong</div></div>
+    <div class="menu-item"><div class="mi-icon">🍵</div><div class="mi-name">Masala Chai</div><div class="mi-sub">Spiced &amp; Creamy</div></div>
+    <div class="menu-item"><div class="mi-icon">🌿</div><div class="mi-name">Green Tea</div><div class="mi-sub">Light &amp; Fresh</div></div>
+    <div class="menu-item"><div class="mi-icon">🥛</div><div class="mi-name">Ginger Milk Tea</div><div class="mi-sub">Warm &amp; Soothing</div></div>
+    <div class="menu-item"><div class="mi-icon">🧊</div><div class="mi-name">Cold Brew</div><div class="mi-sub">Chilled &amp; Bold</div></div>
+    <div class="menu-item"><div class="mi-icon">🫖</div><div class="mi-name">Lemon Tea</div><div class="mi-sub">Tangy &amp; Refreshing</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-name">Cafe Prasad</div>
+  <div class="f-tagline">Tea Master · Konijedu · Since 2014</div>
+  <div class="f-info">
+    <p>📍 <span>Konijedu, Andhra Pradesh</span></p>
+    <p>🕗 Open Daily — <span>6:00 AM to 9:00 PM</span></p>
+    <p>🍃 Crafting exceptional brews for <span>10+ years</span></p>
+  </div>
+  <hr/>
+  <p class="copy">© 2024 Cafe Prasad · All Rights Reserved · Konijedu</p>
+</footer>
+
+</body>
+</html>
